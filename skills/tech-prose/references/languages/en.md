@@ -2,11 +2,11 @@
 
 Companion to SKILL.md. The cross-language patterns live there; this file covers phrasing.
 
-**A single tell proves nothing.** Careful writers make these choices on purpose. Act only when several appear in the same passage, or when one clearly damages accuracy or clarity. Never rewrite a quotation, a title, a proper name, or a passage that discusses the phrase rather than uses it.
+A single tell proves nothing: careful writers make these choices on purpose. Act only when several appear in the same passage, or when one clearly damages accuracy or clarity. Never rewrite a quotation, a title, a proper name, or a passage that discusses the phrase rather than uses it.
 
 ## Staging instead of stating
 
-- **Not X, but Y.** `This isn't just a cache — it's a contract.` State the thing once.
+- **Not X, but Y.** English shape: `This isn't just a cache — it's a contract.` State the thing once.
 - **Arguing with no one.** `While some might argue, the reality is...` Nobody argued. Drop the foil.
 
 ## Rhythm by rule
@@ -22,7 +22,7 @@ Companion to SKILL.md. The cross-language patterns live there; this file covers 
 - **Shallow -ing rider.** `..., thereby ensuring reliability.` The clause claims a guarantee the sentence did not establish.
 - **Copula avoidance.** `serves as`, `acts as`, `functions as` where `is` would do.
 - **Stacked qualifiers.** `a highly scalable, low-latency, fault-tolerant system`. Say which one matters and how you know.
-- **Hyphenated pairs everywhere.** `end-to-end, best-in-class, real-time`. Keep only the ones with a fixed technical meaning.
+- **Hyphenated pairs everywhere.** `enterprise-grade, mission-critical, next-generation`. Keep only the ones with a fixed technical meaning.
 
 ## Formatting by rule
 
@@ -41,7 +41,7 @@ Explanations live in SKILL.md; these are the English shapes.
 
 - Staged run-up: `Before we get to the schema, it helps to understand...` — start with the schema.
 - One-line closer: a short paragraph after each section restating it — delete it.
-- Forced triads: drop the two that only mirror the first; keep all three when each carries different information.
+- Forced triads: collapse to the one that carries information; keep all three when each carries different information.
 - Decorative bold: whole sentences, or bold standing in for a heading or for emphasis. Bold labels in definition lists, parameter lists and term-first lists are structure, because each one is a lookup key rather than an emphasis substitute.
 - Inflated significance: `plays a crucial role in`, `is a testament to`, `marks a significant shift` — usually one ordinary thing.
 
@@ -53,17 +53,17 @@ Written docs borrow from speech in ways that survive a casual read. The test is 
 - **Vague quantity.** `a bunch of`, `a ton of`, `a couple of`. Give the number or the bound; if neither is known, keep the hedge or report the gap — don't invent a figure.
 - **Intensifiers.** `super`, `really`, `pretty`, `totally`, `insanely`, `crazy fast`. Give the measurement.
 - **Filler.** `basically`, `actually`, `just`, `simply`, `of course`, `obviously`. Delete it; if the sentence survives, the word carried nothing.
-- **Slang and idiom.** `ballpark figure`, `back burner`, `hang in there`, `in the weeds`, `brick` a device. Meaning does not survive translation.
+- **Slang and idiom.** `ballpark figure`, `back burner`, `hang in there`, `in the weeds`. Meaning does not survive translation.
 - **Internet shorthand.** `tl;dr`, `ymmv`, `fwiw`. Write it out.
 - **Cutesy register.** `oops`, `uh-oh`, `whoops`, `ta-da`, `magic`, `secret sauce`. Say what happened.
 - **Exclamation marks and emoji.** Not in technical prose.
 
-**Contractions and second person are not this.** `don't`, `you're`, `you can` are prescribed by Microsoft, Google, and GNOME for tutorials and procedures. Keep them. The target is conversational, not colloquial.
+**Contractions and second person are not this.** `don't`, `you're`, `you can` are prescribed by several major style guides for tutorials and procedures. Keep them. The target is conversational, not colloquial.
 
 ## Punctuation
 
 - Serial comma in lists of three or more: `logs, metrics, and traces`.
-- Em dash takes no surrounding spaces; en dash for ranges (`1–9`); hyphen only inside compound words.
+- Em dash: spaced or unspaced is a per-project choice — pick one and keep it consistent within a document. En dash for ranges (`1–9`); hyphen only inside compound words.
 - No space before punctuation, one space after. Chinese sentences follow `zh.md` for their own punctuation.
 - Number plus unit: `10 MB`, `5 s`, but `80%` and `30°` attach directly.
 

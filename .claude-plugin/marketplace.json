@@ -4,16 +4,18 @@
     "name": "Xingwang Liao"
   },
   "metadata": {
-    "description": "Technical documentation and UI copy: drafting, review and editing",
+    "description": "Technical prose: documentation, code comments, UI and CLI copy, commit messages, AI instructions; review, revise and draft",
     "version": "0.1.0"
   },
   "plugins": [
     {
       "name": "tech-prose",
-      "description": "Technical documentation and UI copy skill",
+      "description": "Technical prose skill: review, revise and draft documentation, comments, UI and CLI copy",
       "source": "./",
       "strict": false,
-      "skills": ["./skills/tech-prose"]
+      "skills": [
+        "./skills/tech-prose"
+      ]
     }
   ]
 }

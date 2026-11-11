@@ -48,7 +48,7 @@ With no source text, a drafting request returns the text itself:
 Write the API reference for this endpoint, following the code as it stands.
 ```
 
-The `description` in `SKILL.md` limits the skill to requests that explicitly ask for reviewing, editing, trimming or drafting technical writing; ordinary coding, debugging and refactoring do not trigger it. Whether it triggers automatically depends on the agent you use.
+The `description` in `SKILL.md` limits the skill to requests that explicitly ask for reviewing, editing, trimming or drafting technical writing; ordinary coding, debugging and refactoring are outside it. Whether it triggers automatically depends on the agent you use.
 
 ## What it fixes
 
@@ -61,17 +61,17 @@ The `description` in `SKILL.md` limits the skill to requests that explicitly ask
 
 ## Example rewrite
 
-This pair was written by hand, not produced by a model run. The defects sit in the framing sentences; the sentences carrying the technical facts are unchanged.
+This pair was written by hand, not produced by a model run. The defects sit in two framing sentences (the Chinese version also drops one nominalized phrase); the sentences carrying the technical facts are unchanged.
 
 Before:
 
-> As the codebase has grown, the cache layer has become a critical pillar that simply cannot be ignored. It isn't just a cache — it's the foundation of reliability. To ensure robustness, we recommend optimizing the existing invalidation strategy: when no fallback is configured, a cache miss causes the request to fail; only when a fallback is configured does the service degrade. Retries must not exceed 3.
+> As the business has grown, the cache layer has become a critical pillar that simply cannot be ignored. It isn't just a cache — it's the foundation of stability. To improve reliability, we recommend optimizing the existing invalidation strategy: when no fallback is configured, a cache miss causes the request to fail; only when a fallback is configured does the service degrade. Retries must not exceed 3.
 
 After:
 
-> To ensure robustness, we recommend optimizing the existing invalidation strategy: when no fallback is configured, a cache miss causes the request to fail; only when a fallback is configured does the service degrade. Retries must not exceed 3.
+> To improve reliability, we recommend optimizing the existing invalidation strategy: when no fallback is configured, a cache miss causes the request to fail; only when a fallback is configured does the service degrade. Retries must not exceed 3.
 
-Removed: two framing sentences — a staged opener carrying `cannot be ignored`, and the “not a cache but a foundation” foil.
+Removed: two framing sentences — a staged opener carrying `cannot be ignored`, and the “It isn't just a cache — it's the foundation of stability” foil.
 
 Everything else is unchanged: the purpose, both conditions, the “only when” link between them, and the limit of 3.
 
@@ -91,13 +91,15 @@ Everything else is unchanged: the purpose, both conditions, the “only when” 
 skills/tech-prose/
 ├── SKILL.md                    Entry point: action selection, protected boundaries, on-demand loading, self-check
 ├── references/
-│   ├── carriers/               Carrier rules: documentation / comments / UI copy / AI instructions / commit messages
+│   ├── carriers/               Carrier rules: documentation / comments / UI copy / CLI output / AI instructions / commit messages
 │   ├── languages/              Language rules: Chinese / English
 │   └── tasks/structure.md      Structural changes (on explicit request only)
-└── scripts/check_rewrite.py    Checks facts, normative strength, hedging and code consistency
+└── scripts/check_rewrite.py    Flags 7 categories for review: facts, normative strength, hedging, code consistency and more
 ```
 
-The carrier decides what to write and the language decides how; the two are orthogonal. `SKILL.md` holds only the criteria shared across carriers, and each carrier file documents just its differences.
+The repository root also holds `scripts/validate.py`, `tests/`, `.claude-plugin/` and `.github/workflows/`.
+
+The carrier rules say what to write; the language rules say how. They do not repeat each other. `SKILL.md` holds only the criteria shared across carriers, and each carrier file documents just its differences.
 
 ## Updates
 
@@ -106,17 +108,17 @@ npx skills check    # check for a new version
 npx skills update   # update installed skills
 ```
 
-The version lives in `metadata.version` in `SKILL.md`; the `skills` CLI detects updates by hashing the contents of the whole skill folder.
-
 ## Development
 
 ```bash
-python3 scripts/validate.py                    # validate frontmatter, reference paths, script compilation
+python3 scripts/validate.py                    # validate frontmatter, reference paths, leaked absolute paths, script compilation
 python3 skills/tech-prose/scripts/check_rewrite.py <original> <rewritten>
 python3 -m unittest discover -s tests -v       # regression tests for both checkers
 ```
 
-Before changing a rule, read the section 改动前的三个判断 (“three checks before editing”) in `skills/tech-prose/SKILL.md`, and keep paths inside `references/` relative to `SKILL.md`. CI runs the same validation on every push and pull request.
+When bumping the version, change `metadata.version` in `SKILL.md` and `.claude-plugin/marketplace.json` together.
+
+Before changing a rule, read the “three checks before editing” section in `skills/tech-prose/SKILL.md`, and keep paths inside `references/` relative to `SKILL.md`. CI runs the same validation on every push and pull request.
 
 ## License
 
