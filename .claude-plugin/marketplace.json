@@ -1,0 +1,19 @@
+{
+  "name": "tech-prose",
+  "owner": {
+    "name": "Xingwang Liao"
+  },
+  "metadata": {
+    "description": "Technical documentation and UI copy: drafting, review and editing",
+    "version": "0.1.0"
+  },
+  "plugins": [
+    {
+      "name": "tech-prose",
+      "description": "Technical documentation and UI copy skill",
+      "source": "./",
+      "strict": false,
+      "skills": ["./skills/tech-prose"]
+    }
+  ]
+}
