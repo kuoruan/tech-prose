@@ -54,7 +54,7 @@ metadata:
 
 1. **事实与代码不动。** 数字、版本、限额、标识符、路径、参数默认值必须与原文完全一致。结构授权后内部链接的处理见判断一。**代码本身不改**——不重命名、不合并语句、不调整结构、不动公共 API 契约。精简注释不等于重构。
 2. **不擅自换语言。** 中英混排的文档，优化英文段落不等于把它译成中文，反之亦然。要改语言先问。
-3. **不发明契约。** docstring 里的契约项，例如抛什么异常、并发下什么行为、边界值如何处理、关闭后是否可再用，都要有依据。依据来自用户给出的材料、已核实的源码或文档。原文注释没写但代码里确实 `raise ValueError`，可以补。只有推断，不补。这类补写在语法与风格上都成立，评审时难以察觉。新增引用同理：先核实目标存在且支持所述内容。指向不存在或内容不符的文档、章节、URL 都是凭空断言。
+3. **不发明契约。** 文档字符串（docstring）里的契约项，例如抛什么异常、并发下什么行为、边界值如何处理、关闭后是否可再用，都要有依据。依据来自用户给出的材料、已核实的源码或文档。原文注释没写但代码里确实 `raise ValueError`，可以补。只有推断，不补。这类补写在语法与风格上都成立，评审时难以察觉。新增引用同理：先核实目标存在且支持所述内容。指向不存在或内容不符的文档、章节、URL 都是凭空断言。
 4. **缺事实就标出缺口。** 已经存在的文档和源码：保留原文，把待核查项写进报告。新写的 UI 草案可以用命名占位（如 `<n>`）并提问，占位留在草案里，不进入可发布文案或代码。
 5. **删信息和编信息同等严重。** 限制、前提、例外、回滚方式、失败路径，删掉一句就可能让读者做出错误判断。
 6. **不确定就是不确定。** `可能是 A`、`尚未验证`、`需要压测确认`、`usually`、`advisory` 这类表述承载真实信息，照原样保留其中的不确定性。`必须/建议/允许`、`MUST/SHOULD/MAY` 的强度差别也原样保留。
@@ -73,10 +73,10 @@ metadata:
 - 文档、README、设计说明、API 参考：`references/carriers/documentation.md`。
 - 变更片段（changeset、news fragment）、变更日志（changelog）、发布说明（release notes），包括据这些材料起草 GitHub Release 的说明正文：`references/carriers/release-notes.md`。
 - 提交信息、PR 描述：`references/carriers/commit.md`。
-- 代码注释或 docstring：`references/carriers/comments.md`。
+- 代码注释（含文档注释）或文档字符串（docstring）：`references/carriers/comments.md`。
 - 界面元素文案（按钮、链接、字段标签、空状态、加载、错误、确认框、权限请求）：`references/carriers/ui-copy.md`。
 - CLI 的帮助、报错、进度与结果提示：`references/carriers/cli-output.md`；需要组织帮助文档章节时同时读 `references/carriers/documentation.md`。
-- AGENTS.md、CLAUDE.md、`.cursorrules`、技能文件 SKILL.md 或同类 agent 指令文件：`references/carriers/ai-instructions.md`。
+- AGENTS.md、CLAUDE.md、`.cursorrules`、技能文件 SKILL.md 或同类 AI 指令文件：`references/carriers/ai-instructions.md`。
 
 **结构调整**（审查结构或明确要求重组时）
 
@@ -112,7 +112,7 @@ metadata:
 - 各条角色相同时尽量平行：都用动词开头，或都用名词短语；角色不同的条目不为形式硬凑。
 - 标点跟着内容：整条是片段、纯代码或纯链接，不加句号；含动词的完整句加。
 - 同类条目用列表；要横向比较多个属性时用表格，条目只是各自带几个属性时不必改成表格。
-- 换行看它会不会改变渲染或 diff：一行一句便于查看与修改；渲染层长度不影响结果时，不按固定列宽硬折。载体有硬折约定时遵循该约定（提交正文见 `references/carriers/commit.md`）。
+- 换行看它会不会改变渲染或差异对比结果：一行一句便于查看与修改；渲染层长度不影响结果时，不按固定列宽硬折。载体有硬折约定时遵循该约定（提交正文见 `references/carriers/commit.md`）。
 
 ### 冗余与形式化表达
 
