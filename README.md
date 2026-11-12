@@ -42,7 +42,7 @@ npx skills use kuoruan/tech-prose@tech-prose
 润色一下这段安装说明，数字和版本别动。
 ```
 
-原文没有、要求起草时返回正文：
+没有原文、要求起草时，返回正文：
 
 ```text
 按现有代码给这个接口写一段 API 参考。
@@ -71,7 +71,7 @@ npx skills use kuoruan/tech-prose@tech-prose
 
 > 为了提升可靠性，我们建议优化现有的失效策略：当 fallback 未配置时，缓存未命中会导致请求失败；只有在配置了 fallback 的情况下，服务才会降级。重试次数不能超过 3 次。
 
-删掉的是两句框架句：一句是铺垫开场，连同 `不容忽视` 这类评价；另一句是“它不仅仅是缓存，更是稳定性的基石”这类对偶。`进行优化` 改为 `优化`，删掉套壳后原意不变。
+删掉两句框架句：带有 `不容忽视` 这类评价的铺垫开场，以及“它不仅仅是缓存，更是稳定性的基石”这类对偶。`进行优化` 改为 `优化`，删掉套壳后原意不变。
 
 其余内容原样保留：目的、两个条件、“只有…才”的关系，以及 `不能超过 3 次` 的强度。
 
@@ -97,9 +97,9 @@ skills/tech-prose/
 └── scripts/check_rewrite.py    事实、规范强度、不确定性等 7 类需复核项的检查脚本
 ```
 
-仓库根另有 `scripts/validate.py`、`tests/`、`.claude-plugin/` 与 `.github/workflows/`。
+仓库根另有 `scripts/validate.py`、`tests/`、`evals/`、`.claude-plugin/` 与 `.github/workflows/`。
 
-载体规则说写什么，语言规则怎么说，两者不重复。`SKILL.md` 只放跨载体的判据，各载体文件只写差异。
+载体规则侧重写什么，语言规则侧重怎么写。`SKILL.md` 只放跨载体的判据，各载体文件只写差异。
 
 ## 更新
 
@@ -115,6 +115,8 @@ python3 scripts/validate.py                    # 校验 frontmatter、引用路�
 python3 skills/tech-prose/scripts/check_rewrite.py <原文> <改写>
 python3 -m unittest discover -s tests -v          # 两个检查脚本的回归测试
 ```
+
+技能行为与触发的手动评测见 [evals/README.md](evals/README.md)。运行结果与案例分开记录；检查器测试通过不等于模型行为已验证，手动评测不进入 CI。
 
 改版本号时，`SKILL.md` 的 `metadata.version` 与 `.claude-plugin/marketplace.json` 要一起改。
 

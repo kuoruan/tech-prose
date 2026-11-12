@@ -3,8 +3,8 @@
 
 Checks, without third-party dependencies:
   1. every skills/*/SKILL.md has the required frontmatter and a name matching its folder
-  2. every file path referenced from a skill's markdown exists inside that skill
-  3. no absolute paths leak into skill content
+  2. recognised references in a skill's markdown resolve to files; generic names are exempt
+  3. markdown contains no absolute paths under /home/, /Users/ or /root/
   4. every bundled Python script compiles
 
 Exit code 0 when all checks pass, 1 otherwise.
@@ -44,17 +44,18 @@ def line_of(text: str, position: int) -> int:
 
 
 def refs_in(text: str) -> list[tuple[str, int]]:
-    """Every reference in a markdown file, with its offset."""
+    """Return recognised markdown references and their character offsets."""
     found = [(m.group(0), m.start()) for m in REF_RE.finditer(text)]
     found += [(m.group(1), m.start()) for m in BARE_REF.finditer(text)]
     return found
 
 
 def ref_resolves(skill_dir: Path, md: Path, ref: str) -> bool:
-    """Resolve a reference the way the reader would.
+    """Check whether a reference resolves to a file.
 
     A ref containing a slash is resolved from the skill root; a bare file
     name is resolved from the directory of the file that mentions it.
+    Generic bare names are accepted without checking a target.
     """
     if "/" not in ref and ref in GENERIC_REF:
         return True

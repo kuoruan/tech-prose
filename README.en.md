@@ -97,9 +97,9 @@ skills/tech-prose/
 └── scripts/check_rewrite.py    Flags 7 categories for review: facts, normative strength, hedging, code consistency and more
 ```
 
-The repository root also holds `scripts/validate.py`, `tests/`, `.claude-plugin/` and `.github/workflows/`.
+The repository root also holds `scripts/validate.py`, `tests/`, `evals/`, `.claude-plugin/` and `.github/workflows/`.
 
-The carrier rules say what to write; the language rules say how. They do not repeat each other. `SKILL.md` holds only the criteria shared across carriers, and each carrier file documents just its differences.
+The carrier rules focus on what to write; the language rules focus on how. `SKILL.md` holds only the criteria shared across carriers, and each carrier file documents just its differences.
 
 ## Updates
 
@@ -115,6 +115,8 @@ python3 scripts/validate.py                    # validate frontmatter, reference
 python3 skills/tech-prose/scripts/check_rewrite.py <original> <rewritten>
 python3 -m unittest discover -s tests -v       # regression tests for both checkers
 ```
+
+For manual behavior and trigger evaluations, see [evals/README.md](evals/README.md) (in Chinese). Run results are recorded separately from the cases. Passing checker tests does not validate model behavior; the manual evaluations are not part of CI.
 
 When bumping the version, change `metadata.version` in `SKILL.md` and `.claude-plugin/marketplace.json` together.
 

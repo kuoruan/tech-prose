@@ -1,14 +1,14 @@
 #!/usr/bin/env python3
 """Compare an original text/code sample against a rewritten version.
 
-Checks the things that must survive a rewrite:
+Flags potential rewrite regressions for human review:
   1. concrete facts   - digits, Chinese numerals with a counter, identifiers
   2. normativity      - MUST/SHOULD/MAY, must/should/may, 必须/建议/允许/可以/不得/禁止
   3. uncertainty      - hedges, unverified markers, ranges
-  4. code identity    - for .py, executable code unchanged (comments ignored)
+  4. code identity    - for .py, AST unchanged after dropping docstrings (comments ignored)
   5. similarity       - descriptive only, never affects the exit code
   6. fabricated names - exception types and API names absent from the original
-  7. language drift   - CJK/Latin mix changed, i.e. the text was translated
+  7. language drift   - a substantial change in CJK/Latin mix, not proof of translation
 
 Usage: python3 check_rewrite.py <original> <rewritten>
 Exit code 0 = no check flagged anything, 1 = at least one did,
@@ -34,16 +34,18 @@ KNOWN LIMITS - this is a filter for human review, not a verdict:
   - Facts are compared as a set of tokens, so the check does not know which
     number belongs to which subject, nor how many times a number repeats;
     swapping 500 between two sentences, or dropping a duplicate 3, passes.
-  - Fabricated names flags any name that appears only in the rewrite, which
-    includes legitimate reuse of a name the original mentioned only in
-    passing. A hit means "check whether this was invented", not "this is a
-    lie".
+    Backtick matching can span lines and fence delimiters, treating prose as
+    an identifier. Review those matches manually.
+  - Fabricated names flags recognised name patterns found only in the rewrite.
+    A legitimate name may be flagged if its original mention did not match
+    those patterns. A hit means "check whether this was invented", not
+    "this is a lie".
   - Similarity is descriptive only. A low score is not a defect and a high
     score is not a pass; light touch is correct on text that was already fine.
   - Numeric grouping is not understood: 1,000 becomes the tokens 1 and 000,
     so a rewrite that writes 1000 is reported as two lost facts.
-  - Nothing here judges prose quality. It only catches lost information and
-    invented information.
+  - Nothing here judges prose quality. These checks flag selected signs of
+    lost or invented information; they do not cover every kind of change.
 """
 import ast
 import re
