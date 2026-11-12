@@ -2,7 +2,7 @@
 
 # Tech Prose
 
-审阅、润色、起草技术文字的 agent skill。覆盖文档、代码注释与 docstring、界面与 CLI 文案、提交信息与 PR 描述、AI 指令文件，中文和英文都处理。
+审阅、润色、起草技术文字的 agent skill。覆盖文档、代码注释与 docstring、界面与 CLI 文案、提交信息与 PR 描述、变更与发布说明、AI 指令文件，中文和英文都处理。
 
 默认只改措辞，不动事实：数字、版本、限额、标识符、路径，以及 `必须`/`建议`/`允许` 这类规范强度逐字保留。结构调整只提建议，动手需要你明确要求。
 
@@ -91,7 +91,7 @@ npx skills use kuoruan/tech-prose@tech-prose
 skills/tech-prose/
 ├── SKILL.md                    入口：动作判定、保护边界、按需加载、自检
 ├── references/
-│   ├── carriers/               载体规则：文档 / 注释 / 界面文案 / CLI 输出 / AI 指令 / 提交信息
+│   ├── carriers/               载体规则：文档 / 注释 / 界面文案 / CLI 输出 / AI 指令 / 提交信息 / 变更与发布说明
 │   ├── languages/              语言规则：中文 / 英文
 │   └── tasks/structure.md      结构调整（需明确要求）
 └── scripts/check_rewrite.py    事实、规范强度、不确定性等 7 类需复核项的检查脚本

@@ -171,6 +171,130 @@ project delete --id "$PROJECT_ID"
 - 语义：建议用已知名称“保存更改”定位；指出成功条件和图片替代说明缺少可核实材料，不猜红框内容或成功提示。
 - 质量：不将所有“下图”一概判错，不要求机械抄录图片全部内容。
 
+## E8：按指定版本起草发布说明
+
+请求：
+
+> 根据 CHANGELOG.md 起草 v3.0.0 的 GitHub Release 正文，直接给正文和缺口，不写文件，不执行发布命令。
+
+输入 `CHANGELOG.md`：
+
+```markdown
+# Changelog
+
+## Unreleased
+
+- 计划在 4.0.0 默认启用 `--legacy-parser`。
+
+## 3.1.0-rc.1
+
+- 新增实验性的批量导入接口，行为可能变化。
+
+## 3.0.0
+
+### Changed
+
+- **破坏性变更**：配置键 `output` 改名为 `outputs`。旧键不再读取，升级时必须改用 `outputs`。
+- `legacyMode` 已废弃，目前仍可使用，4.0 起移除。
+- 单次导入上限从 1000 条降到 500 条，超过时返回 `413`。
+
+### Fixed
+
+- 修复并发写入时偶发丢失最后一条记录；根因尚未确认。
+
+## 2.9.1
+
+- 修复超时后重复重试。
+```
+
+判据：
+
+- 契约：工作区不变，不新建文件，不执行任何发布或版本命令。
+- 语义：只取 3.0.0 的条目，不混入 `Unreleased`、3.1.0-rc.1 与 2.9.1；保留 `output`→`outputs`、旧键不再读取与必须迁移的要求、`legacyMode` 尚可使用但 4.0 起移除、1000 条降至 500 条的变化、`413`，以及并发问题“根因尚未确认”；不编 PR、贡献者与比较链接，不写“向后兼容”“性能提升”这类原文没有的保证。
+- 质量：整理为面向升级者的正文，破坏性影响与必要动作易找；不强制新增固定章节，正文与缺口分开。
+
+## E9：片段正文与机器字段分开
+
+请求：
+
+> 直接改这两个发布片段的正文，只动文字，不动机器字段和文件名，不新建或删除文件。
+
+输入 `.changeset/brave-lions-sing.md`：
+
+```markdown
+---
+"@acme/core": minor
+"@acme/cli": patch
+---
+
+我们非常高兴地宣布，本次发布对批量导入功能进行了全面支持，为用户带来了更加便捷高效的数据导入体验。需要说明的是，当单次导入超过 500 条时会返回 `413`，该上限尚未在压测环境中验证。
+```
+
+输入 `releasenotes/notes/multi-output-4f2a9c1b7d.yaml`：
+
+```yaml
+---
+features:
+  - |
+    We are thrilled to introduce comprehensive support for multiple output
+    targets. When more than one target is configured, the writer emits to each
+    target in turn; if the first target fails, the remaining targets are skipped.
+upgrade:
+  - >
+    The ``output`` key is now ``outputs``. The old key is still read in 2.4 and is
+    removed in 2.6.
+fixes:
+  - >
+    Empty batches are now accepted; they previously raised a validation error.
+```
+
+判据：
+
+- 契约：两个文件名不变；Changesets 的包名、`minor`/`patch` 与头部元数据分隔线逐字保留；Reno 的键名、`|` 与 `>`、缩进、列表结构及 RST 双反引号标记不变；正文语言各自保留，不新建或删除片段文件。
+- 语义：保留 500 条上限、`413` 与“尚未在压测环境中验证”；保留多目标依次写入、首个失败后跳过其余目标的条件；保留 `output`→`outputs`、2.4 仍读取旧键、2.6 移除的版本关系，以及空批次此前报错这一对照；不编最终发布版本、发布日期或“已发布”。
+- 质量：只删夸张与套话；保留 RST 语法，不把 `|` 与 `>` 互换，不把 YAML 值改成 Markdown 列表。
+
+## E10：润色生成的变更日志
+
+请求：
+
+> 直接改 CHANGELOG.md 的条目文字，保留生成格式；不要改写成 Keep a Changelog，也不要合并或重排历史版本。
+
+输入 `CHANGELOG.md`：
+
+```markdown
+# Changelog
+
+<!-- 此文件由 release-please 生成，请勿手动编辑 -->
+
+## [2.4.0](https://github.com/acme/core/compare/v2.3.1...v2.4.0) (2026-05-02)
+
+### Features
+
+* **cli:** 新增 `--output-dir` 参数，用户可以更加灵活地指定输出位置 ([#812](https://github.com/acme/core/pull/812))
+* **core:** 对批量导入链路进行了深度优化，性能表现十分出色 ([#809](https://github.com/acme/core/pull/809))
+
+### Bug Fixes
+
+* **core:** 修复空批次导致的崩溃 ([#805](https://github.com/acme/core/pull/805))
+
+### Bug Fixes
+
+* **cli:** 修复 `--dry-run` 下仍写入文件的问题 ([#803](https://github.com/acme/core/pull/803))
+
+## [2.3.1](https://github.com/acme/core/compare/v2.3.0...v2.3.1) (2026-04-18)
+
+### Bug Fixes
+
+* **core:** 修复超时后的重复重试 ([#798](https://github.com/acme/core/pull/798))
+```
+
+判据：
+
+- 契约：生成器注释、版本号、比较链接、日期、分类标题（包括两个 `### Bug Fixes`）、条目里的 `**cli:**` 与 `**core:**` 归属和 PR 链接逐字保留；2.3.1 的历史条目不改；不新建或删除文件。
+- 语义：不把“深度优化”“性能表现出色”补成具体指标、百分比或兼容承诺；没有依据时删掉评价或保留原样并列缺口，不编 CVE、发布日期或行为保证。
+- 质量：只润色条目自身的冗余与夸张，不改成六类 Keep a Changelog 标题，不合并重复章节，不重排版本顺序。
+
 ## T：真实宿主触发请求
 
 这些请求单独测试。正例使用前述对应输入；反例不需要文件。不显式提技能名，不能复用执行测试会话。按宿主可观察的加载证据判断，不按回答风格判断。

@@ -2,7 +2,7 @@
 
 # Tech Prose
 
-An agent skill that reviews, edits and drafts technical writing. It covers documentation, code comments and docstrings, interface and CLI copy, commit messages and PR descriptions, and AI instruction files. It works in Chinese and English.
+An agent skill that reviews, edits and drafts technical writing. It covers documentation, code comments and docstrings, interface and CLI copy, commit messages and PR descriptions, changelogs and release notes, and AI instruction files. It works in Chinese and English.
 
 By default it changes only the wording, never the facts: numbers, versions, limits, identifiers, paths, and normative strength (`MUST` / `SHOULD` / `MAY`) are preserved verbatim. Structural problems are raised as suggestions; acting on them requires an explicit request.
 
@@ -91,7 +91,7 @@ Everything else is unchanged: the purpose, both conditions, the “only when” 
 skills/tech-prose/
 ├── SKILL.md                    Entry point: action selection, protected boundaries, on-demand loading, self-check
 ├── references/
-│   ├── carriers/               Carrier rules: documentation / comments / UI copy / CLI output / AI instructions / commit messages
+│   ├── carriers/               Carrier rules: documentation / comments / UI copy / CLI output / AI instructions / commit messages / changelogs and release notes
 │   ├── languages/              Language rules: Chinese / English
 │   └── tasks/structure.md      Structural changes (on explicit request only)
 └── scripts/check_rewrite.py    Flags 7 categories for review: facts, normative strength, hedging, code consistency and more

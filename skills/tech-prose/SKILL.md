@@ -20,7 +20,7 @@ metadata:
 
 - **只问“看看/检查一下”** → `review`（审阅）：只读，列问题和依据，不改文件。
 - **有原文且要求改**（“优化”“润色”“精简”“改严谨”）→ `revise`（改写）：给改写结果。
-- **没有原文，要求写** → `write`（起草）：给正文。
+- **要求写新正文**（没有待改写的原文，或根据参考材料另写一份正文）→ `write`（起草）：给正文。
 
 输出形态跟着动作走：
 
@@ -70,7 +70,8 @@ metadata:
 
 **载体**
 
-- 文档、README、设计说明、API 参考、release notes：`references/carriers/documentation.md`。
+- 文档、README、设计说明、API 参考：`references/carriers/documentation.md`。
+- 变更片段（changeset、news fragment）、变更日志（changelog）、发布说明（release notes），包括据这些材料起草 GitHub Release 的说明正文：`references/carriers/release-notes.md`。
 - 提交信息、PR 描述：`references/carriers/commit.md`。
 - 代码注释或 docstring：`references/carriers/comments.md`。
 - 界面元素文案（按钮、链接、字段标签、空状态、加载、错误、确认框、权限请求）：`references/carriers/ui-copy.md`。
